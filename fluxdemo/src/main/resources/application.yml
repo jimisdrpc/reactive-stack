@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port:  27017
+      database: demodb
+      authentication-database: admin
+      username: root
+      password: rootpassword
