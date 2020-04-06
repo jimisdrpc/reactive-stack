@@ -1,0 +1,11 @@
+<app-sse-flux-status></app-sse-flux-status>
+
+<br/>
+<label><b>FireStore</b></label>
+<ul>
+    <li *ngFor="let transfer of transfers | async">
+        <pre>{{ transfer | json }}</pre>
+    </li>
+</ul>
+
+<app-flux-polled></app-flux-polled>

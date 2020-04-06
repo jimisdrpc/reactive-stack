@@ -4,13 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
-  template: `
-      <ul>
-          <li *ngFor="let transfer of transfers | async">
-              <pre>{{ transfer | json }}</pre>
-          </li>
-      </ul>
-  `
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   public transfers: Observable<any[]>;

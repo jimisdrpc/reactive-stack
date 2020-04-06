@@ -1,0 +1,4 @@
+<label><b>Flux SSE</b></label>
+<div *ngFor="let s of status$ | async">
+    <div>{{s.status}}</div>
+</div>

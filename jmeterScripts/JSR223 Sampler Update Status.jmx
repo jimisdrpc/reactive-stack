@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="false">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import java.util.Arrays;
+try {
+	MongoClientSettings settings = MongoClientSettings.builder().applyToClusterSettings {builder -&gt; builder.hosts(Arrays.asList(				new ServerAddress(vars.get(&quot;localhost&quot;),vars.get(&quot;27017&quot;).toInteger())))}
+		.build();
+		
+	MongoClient mongoClient = MongoClients.create(settings);
+	MongoDatabase database = mongoClient.getDatabase(vars.get(&quot;demodb&quot;));
+	MongoCollection&lt;Document&gt; collection = database.getCollection(vars.get(&quot;transfers&quot;));
+	vars.putObject(&quot;collection&quot;, collection);
+
+	Document document = new Document(&quot;id&quot;, &quot;3&quot;)
+	.append(&quot;origem&quot;, &quot;Jimis&quot;)
+	.append(&quot;destino&quot;, &quot;drpc&quot;)
+	.append(&quot;status&quot;, 1);
+
+	collection.insertOne(document);
+	
+	return &quot;Connected to &quot; + vars.get(&quot;transfers&quot;);
+}
+catch (Exception e) {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseCode(&quot;500&quot;);
+	SampleResult.setResponseMessage(&quot;Exception: &quot; + e);
+}</stringProp>
+          <stringProp name="scriptLanguage">java</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="false">
+          <stringProp name="BeanShellSampler.query">import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import java.util.Arrays;
+try {
+	MongoClientSettings settings = MongoClientSettings.builder().applyToClusterSettings {builder -&gt; builder.hosts(Arrays.asList(				new ServerAddress(vars.get(&quot;localhost&quot;),vars.get(&quot;27017&quot;).toInteger())))}
+		.build();
+		
+	MongoClient mongoClient = MongoClients.create(settings);
+	MongoDatabase database = mongoClient.getDatabase(vars.get(&quot;demodb&quot;));
+	MongoCollection&lt;Document&gt; collection = database.getCollection(vars.get(&quot;transfers&quot;));
+	vars.putObject(&quot;collection&quot;, collection);
+
+	Document document = new Document(&quot;id&quot;, &quot;3&quot;)
+	.append(&quot;origem&quot;, &quot;Jimis&quot;)
+	.append(&quot;destino&quot;, &quot;drpc&quot;)
+	.append(&quot;status&quot;, 1);
+
+	collection.insertOne(document);
+	
+	return &quot;Connected to &quot; + vars.get(&quot;transfers&quot;);
+}
+catch (Exception e) {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseCode(&quot;500&quot;);
+	SampleResult.setResponseMessage(&quot;Exception: &quot; + e);
+}</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="false">
+          <stringProp name="scriptLanguage">java</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">setStrictJava (true);
+int a = 2147483647;
+short b = 32767;
+long c = 9223372036854775807L;
+byte d = 127;
+log.info(a + &quot; - It is int&quot;);
+log.info(b + &quot; - It is short&quot;);
+log.info(c + &quot; - It is long&quot;);
+log.info(d + &quot; - It is byte&quot;);</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="true">
+          <stringProp name="scriptLanguage">java</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import org.bson.Document;
+
+import java.util.Arrays;
+
+try {
+	MongoClient mongoClient = MongoClients.create(&quot;demodb://root:rootpassword@localhost:27017/?authSource=admin&amp;ssl=true&quot;);
+
+	MongoDatabase database = mongoClient.getDatabase(vars.get(&quot;demodb&quot;));
+	MongoCollection&lt;Document&gt; collection = database.getCollection(vars.get(&quot;transfers&quot;));
+	vars.putObject(&quot;collection&quot;, collection);
+
+	Document document = new Document(&quot;id&quot;, &quot;3&quot;)
+	.append(&quot;origem&quot;, &quot;Jimis&quot;)
+	.append(&quot;destino&quot;, &quot;drpc&quot;)
+	.append(&quot;status&quot;, 1);
+
+	collection.insertOne(document);*
+	
+	return &quot;connected&quot;;
+}
+catch (Exception e) {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseCode(&quot;500&quot;);
+	SampleResult.setResponseMessage(&quot;Exception: &quot; + e);
+}</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

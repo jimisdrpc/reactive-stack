@@ -51,6 +51,7 @@ public class TransferController {
 
 	@PostMapping("/transfer")
 	public Mono<Transfer> createTransfer(@Valid @RequestBody Transfer transfer) {
+		//extratoRepository.save(e).flatMap(result -> { // do something with the result }).subscribe()
 		return transferRepository.save(transfer);
 	}
 

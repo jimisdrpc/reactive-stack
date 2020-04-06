@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "30354529-e972-4cfe-8ec3-758b32718c2f",
+		"name": "FireBase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Query Fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"structuredQuery\": {\r\n    \"where\" : {\r\n        \"fieldFilter\" : { \r\n        \"field\": {\"fieldPath\": \"status\"}, \r\n        \"op\":\"EQUAL\", \r\n        \"value\": {\"stringValue\": \"updatedFromPostMan2\"}\r\n        }\r\n    },\r\n    \"from\": [{\"collectionId\": \"transfers\"}]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/transfer-status-realtime/databases/(default)/documents:runQuery",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"transfer-status-realtime",
+						"databases",
+						"(default)",
+						"documents:runQuery"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "AIzaSyAz_JiqW1N-bsTOjLglMj51Wf5UIJdqwh8",
+							"disabled": true
+						}
+					]
+				},
+				"description": "https://stackoverflow.com/questions/49723881/firebase-firestore-rest-api-starting-query"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Document to Collection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fields\": {\r\n    \"status\": {\r\n      \"stringValue\": \"fracasso\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/transfer-status-realtime/databases/(default)/documents/transfers",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"transfer-status-realtime",
+						"databases",
+						"(default)",
+						"documents",
+						"transfers"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "AIzaSyAz_JiqW1N-bsTOjLglMj51Wf5UIJdqwh8",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update with commit and writes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"writes\": [\n        {\n            \"update\": {\n                \"name\": \"projects/transfer-status-realtime/databases/(default)/documents/transfers/Fuq0LALDXpfCJQQ8QoYZ\",\n                \"fields\": {\n                    \"status\": {\n                        \"stringValue\": \"em espera\"\n                    }\n                }\n            }\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/transfer-status-realtime/databases/(default)/documents:commit",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"transfer-status-realtime",
+						"databases",
+						"(default)",
+						"documents:commit"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "AIzaSyAz_JiqW1N-bsTOjLglMj51Wf5UIJdqwh8",
+							"disabled": true
+						}
+					]
+				},
+				"description": "https://firebase.google.com/docs/firestore/reference/rest/v1beta1/Write\n\nhttps://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.documents#Document"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete document",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"writes\": [\n        {\n            \"delete\": \"projects/transfer-status-realtime/databases/(default)/documents/transfers/zNHVesMyaPWIy2O6Jzz3\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/transfer-status-realtime/databases/(default)/documents:commit",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"transfer-status-realtime",
+						"databases",
+						"(default)",
+						"documents:commit"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
