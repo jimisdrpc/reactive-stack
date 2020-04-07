@@ -24,7 +24,7 @@ export class SseFluxStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.status$ = this.sseFluxStatusService
-      .getServerSentEvent("http://localhost:8080/stream/transfers");
+      .getServerSentEvent("http://localhost:8080/sse/flux/stream/status");
   }
 
 }

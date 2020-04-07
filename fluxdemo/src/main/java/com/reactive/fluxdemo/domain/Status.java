@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Status {
 	@Id
 	private String id;
-	private Integer status;
+	private String status;
 
 	public Status() {
 		super();
 	}
 
-	public Status(String id, Integer status) {
+	public Status(String id, String status) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -27,11 +27,11 @@ public class Status {
 		this.id = id;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
