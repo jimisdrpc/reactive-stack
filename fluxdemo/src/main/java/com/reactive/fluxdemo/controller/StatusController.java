@@ -18,6 +18,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
@@ -82,4 +83,31 @@ public class StatusController {
 						.data(data.getT2()).build());
 	}
 
+	@GetMapping(value = "/randomStatus", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<ServerSentEvent<Status>> randomStatus() {
+		
+        ArrayList<String> statusList = new ArrayList<String>();
+        statusList.add("Iniciado");
+        statusList.add("Recusado");
+        statusList.add("Sucesso");
+        
+//        for (int i = 0; i < 100; i++) {
+//            int x = ThreadLocalRandom.current().nextInt(0, statusList.size());
+//            System.out.println(statusList.get(x));
+//        }
+        
+//		return Flux.interval(Duration.ofSeconds(1))
+//				.map(seq -> Tuples.of(seq, ThreadLocalRandom.current().nextInt()))
+//				.map(data -> ServerSentEvent.<Status>builder().event("random").data(new Status(Long.toString(data.getT1()), ThreadLocalRandom.current().nextInt(0, statusList.size() )
+//						.data(data.getT2()).build())));
+        
+		return Flux.interval(Duration.ofSeconds(1))
+				.map(seq -> Tuples.of(seq, ThreadLocalRandom.current().nextInt()))
+				.map(data -> ServerSentEvent.<Status>builder().data(
+						new Status(Long.toString(data.getT1()),statusList.get(ThreadLocalRandom.current().nextInt(0, statusList.size() ))
+						))
+						.build());
+		
+	}
+	
 }
